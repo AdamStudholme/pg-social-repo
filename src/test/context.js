@@ -2,7 +2,7 @@ const { randomBytes } = require("crypto");
 const { default: migrate } = require("node-pg-migrate");
 const format = require("pg-format");
 const pool = require("../pool");
-const { password: DEFAULT_OPTS } = require("../../configs");
+const { postgreSqlDefault: DEFAULT_OPTS } = require("../../configs");
 
 class Context {
   static async build() {

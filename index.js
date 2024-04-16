@@ -1,6 +1,6 @@
 const app = require("./src/app.js");
 const pool = require("./src/pool.js");
-const { password: DEFAULT_OPTS } = require("./configs.js");
+const { postgreSqlDefault: DEFAULT_OPTS } = require("./configs.js");
 
 pool
   .connect(DEFAULT_OPTS)
