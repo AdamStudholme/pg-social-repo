@@ -2,14 +2,14 @@ const { randomBytes } = require("crypto");
 const { default: migrate } = require("node-pg-migrate");
 const format = require("pg-format");
 const pool = require("../pool");
-const DEFAULT_OPTS = require("../../configs");
+const { password: DEFAULT_OPTS } = require("../../configs");
 
 class Context {
   static async build() {
     // Randomly generating a role name to connect to PG as
     const roleName = "a" + randomBytes(4).toString("hex"); //postgres roles must begin with a letter hence 'a'
     //Connect to PG as normal
-    await pool.connect(DEFAULT_OPTS());
+    await pool.connect(DEFAULT_OPTS);
     //Create new role
     await pool.query(
       // `CREATE ROLE ${roleName} WITH LOGIN PASSWORD '${roleName}'; ` //Rather than using a template literal you can use pg-format
@@ -56,7 +56,7 @@ class Context {
     //Disconnect from PG
     await pool.close();
     //Reconnect as root user
-    await pool.connect(DEFAULT_OPTS());
+    await pool.connect(DEFAULT_OPTS);
     //Delete the role & schema created
     await pool.query(format("DROP SCHEMA %I CASCADE;", this.roleName));
     await pool.query(format("DROP ROLE %I;", this.roleName));

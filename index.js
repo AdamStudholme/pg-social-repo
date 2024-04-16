@@ -1,9 +1,9 @@
 const app = require("./src/app.js");
 const pool = require("./src/pool.js");
-const DEFAULT_OPTS = require("../../configs");
+const { password: DEFAULT_OPTS } = require("./configs.js");
 
 pool
-  .connect(DEFAULT_OPTS())
+  .connect(DEFAULT_OPTS)
   .then(() => {
     app().listen(3005, () => {
       console.log("Listening on port 3005");
